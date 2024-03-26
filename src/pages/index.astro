@@ -11,7 +11,7 @@
     <title>Astro</title>
   </head>
   <body class="bg-black flex flex-col items-center justify-center h-svh">
-    <canvas id="myCanvas" class="w-[480px] h-[320px]"></canvas>
+    <canvas tabindex='1' id="myCanvas" class="w-[480px] h-[320px]"></canvas>
   </body>
   <style>
     * {
@@ -31,18 +31,39 @@
     let y = canvas.height - 30;
     let dx = 2;
     let dy = -2;
+    let x_bar = 100.500;
+    let y_bar = 130;
     const ballRadius = 10;
+    function move_Bar() {
+      canvas.addEventListener("keydown", (e) => {
+        if(e.key == "ArrowRight"){
+          x_bar = x_bar+0.009
+        }else{
+          x_bar = x_bar-0.009
+        }
+          
+      });
+    }
     function draw_Ball() {
-	 canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
       canvasContext.beginPath();
       canvasContext.arc(x, y, ballRadius, 0, Math.PI * 2);
       canvasContext.fillStyle = "yellow";
       canvasContext.fill();
       canvasContext.closePath();
     }
+    function draw_Bar() {
+      canvasContext.beginPath();
+      canvasContext.rect(x_bar, y_bar, 75, 10);
+      canvasContext.fillStyle = "red";
+      canvasContext.fill();
+      canvasContext.closePath();
+    }
     // ;
     function draw() {
       draw_Ball();
+      draw_Bar();
+      move_Bar()
       console.log(x, y);
       x += dx;
       y += dy;
@@ -51,6 +72,9 @@
       }
       if (x + dy > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
+      }
+      if (x + dx === x_bar +85 || y + dy === 85) {
+        dy = -dy;
       }
       console.log(x, y);
     }
