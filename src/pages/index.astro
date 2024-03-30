@@ -64,7 +64,6 @@
       draw_Ball();
       draw_Bar();
       move_Bar()
-      console.log(x, y);
       x += dx;
       y += dy;
       if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
@@ -73,10 +72,10 @@
       if (x + dy > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
       }
-      if (x + dx === x_bar +85 || y + dy === 85) {
+      if (y == y_bar && x > x_bar - 75 && x < x_bar+75) {
         dy = -dy;
       }
-      console.log(x, y);
+      console.log(x, x_bar - 75);
     }
     function startGame() {
       const interval = setInterval(draw, 25);
